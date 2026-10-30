@@ -160,8 +160,8 @@ int main(){
   );
 
   std::for_each(final_numbers.begin(), final_numbers.end(), [&vector1, &vector2](int num) {
-    auto c1 = std::count(vector1.begin(), vector1.end(), num);
-    auto c2 = std::count(vector2.begin(), vector2.end(), num);
+    std::ptrdiff_t c1 = std::count(vector1.begin(), vector1.end(), num);
+    std::ptrdiff_t c2 = std::count(vector2.begin(), vector2.end(), num);
     std::cout << "Num " << num << " in vector1: " << c1 << " times, in vector2: " << c2 << " times\n";
   });
 
