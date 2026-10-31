@@ -159,9 +159,12 @@ int main(){
         [&unic_v1](int num) { return unic_v1.count(num) > 0; }
   );
 
-  std::for_each(final_numbers.begin(), final_numbers.end(), [&vector1, &vector2](int num) {
+  std::cout << *(final_numbers.end() - 1) << '\n';
+
+  std::for_each(final_numbers.begin(), final_numbers.end(), [=](const int &num) {
     std::ptrdiff_t c1 = std::count(vector1.begin(), vector1.end(), num);
     std::ptrdiff_t c2 = std::count(vector2.begin(), vector2.end(), num);
+
     std::cout << "Num " << num << " in vector1: " << c1 << " times, in vector2: " << c2 << " times\n";
   });
 
