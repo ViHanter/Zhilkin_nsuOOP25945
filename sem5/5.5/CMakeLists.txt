@@ -13,20 +13,17 @@ option(BUILD_TESTS "Build the Google Test suite" ON)
 add_subdirectory(math_lib)
 
 if(BUILD_TESTS)
-    message(STATUS ">>> Сборка тестов ВКЛЮЧЕНА <<<")
+  include(FetchContent)
+  FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.tar.gz)
+  set(gtest_force_shared_crt
+      ON
+      CACHE BOOL "" FORCE)
+  FetchContent_MakeAvailable(googletest)
 
-    include(FetchContent)
-    FetchContent_Declare(
-      googletest
-      URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.tar.gz
-    )
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    FetchContent_MakeAvailable(googletest)
-
-    enable_testing()
-    add_subdirectory(tests)
-else()
-    message(STATUS ">>> Сборка тестов ВЫКЛЮЧЕНА <<<")
+  enable_testing()
+  add_subdirectory(tests)
 endif()
 
 add_executable(main_app main.cpp)

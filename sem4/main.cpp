@@ -8,6 +8,16 @@
 #include <set>
 #include <map>
 
+std::vector<int> vector1;
+std::vector<int> vector2;
+
+void printCounts(int num) {
+    auto c1 = std::count(vector1.begin(), vector1.end(), num);
+    auto c2 = std::count(vector2.begin(), vector2.end(), num);
+    std::cout << "Num " << num << " in vector1: " << c1
+              << " times, in vector2: " << c2 << " times\n";
+}
+
 std::set<int> getUnicumEl(const std::vector<int>& vec, int min_count) {
     std::map<int, int> counts;
     for (int x : vec) {
@@ -33,8 +43,6 @@ void printSet(const std::set<int>& s) {
 
 
 int main(){
-  std::vector<int> vector1;
-  std::vector<int> vector2;
 
   std::ifstream in("s04_v1_45_1.txt");
   std::stringstream buffer;
@@ -159,14 +167,12 @@ int main(){
         [&unic_v1](int num) { return unic_v1.count(num) > 0; }
   );
 
-  std::cout << *(final_numbers.end() - 1) << '\n';
-
-  std::for_each(final_numbers.begin(), final_numbers.end(), [=](const int &num) {
-    std::ptrdiff_t c1 = std::count(vector1.begin(), vector1.end(), num);
-    std::ptrdiff_t c2 = std::count(vector2.begin(), vector2.end(), num);
-
-    std::cout << "Num " << num << " in vector1: " << c1 << " times, in vector2: " << c2 << " times\n";
-  });
+  std::for_each(final_numbers.begin(), final_numbers.end(), printCounts);
+  // std::for_each(final_numbers.begin(), final_numbers.end(), [&vector1, &vector2](int num) {
+  //   auto c1 = std::count(vector1.begin(), vector1.end(), num);
+  //   auto c2 = std::count(vector2.begin(), vector2.end(), num);
+  //   std::cout << "Num " << num << " in vector1: " << c1 << " times, in vector2: " << c2 << " times\n";
+  // });
 
   return 0;
 }
