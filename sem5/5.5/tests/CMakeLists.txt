@@ -1,10 +1,16 @@
-# Тестовый исполняемый файл
-add_executable(run_tests test_main.cpp)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+set(gtest_force_shared_crt
+    ON
+    CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
-# Линкуем тестируемую библиотеку и Google Test.
-# gtest_main даёт готовую функцию main(), поэтому своего main в тестах не нужно.
-target_link_libraries(run_tests PRIVATE my_functions GTest::gtest_main)
-
-# Регистрируем тесты в ctest (способ 1: ctest)
-include(GoogleTest)
-gtest_discover_tests(run_tests)
+add_executable(my_tests test_main.cpp)
+target_link_libraries(my_tests PRIVATE my_lib GTest::gtest_main)
+add_custom_target(
+  run_tests
+  COMMAND $<TARGET_FILE:my_tests>
+  DEPENDS my_tests)

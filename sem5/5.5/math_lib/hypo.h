@@ -2,9 +2,6 @@
 #include <cmath>
 #include <random>
 
-// Задание 5.V: функции стали шаблонными, поэтому их реализация целиком
-// находится в заголовке, а сама библиотека ниже объявлена как INTERFACE.
-
 namespace Hypo {
     template <typename T>
     T hypotenuse(const T& a, const T& b) {
